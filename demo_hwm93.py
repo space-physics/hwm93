@@ -2,7 +2,7 @@
 """
 NOTE: The performance of this demo has not been checked at all.
 Please do basic sanity checks of output.
-Quick demo of calling NRL MSISE-00 using f2py3 from Python
+Quick demo of calling HWM93 using f2py3 from Python
 Michael Hirsch
 bostonmicrowave.com
 
