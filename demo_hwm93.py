@@ -12,7 +12,7 @@ from
 ftp://hanna.ccmc.gsfc.nasa.gov/pub/modelweb/atmospheric/hwm93/
 """
 from __future__ import division
-from pandas import Series, DataFrame
+from pandas import Series
 from numpy import arange,asarray
 from matplotlib.pyplot import figure,show
 #
