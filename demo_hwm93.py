@@ -53,9 +53,6 @@ if __name__ == '__main__':
     p.add_argument('F107a',help=' 81 day AVERAGE OF F10.7 FLUX (centered on day DDD)',type=float,nargs='?',default=150)
     p.add_argument('F107',help='DAILY F10.7 FLUX FOR PREVIOUS DAY',type=float,nargs='?',default=150)
     p.add_argument('AP',help='daily ap',type=float,nargs='?',default=4)
-    p.add_argument('mass',help=('MASS NUMBER (ONLY DENSITY FOR SELECTED GAS IS ' +
-                    'CALCULATED.  MASS 0 IS TEMPERATURE.  MASS 48 FOR ALL. '+
-                    'MASS 17 IS Anomalous O ONLY.'),nargs='?',default=48)
     p = p.parse_args()
 
     inp = Series({'iyd':p.iyd, 'sec':p.utsec, 'glat':p.glat, 'glon':p.glon,
