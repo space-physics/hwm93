@@ -16,11 +16,14 @@ from matplotlib.pyplot import figure,show
 #
 import sys
 sys.path.append('../msise-00/') #git clone https://github.com/scienceopen/msise-00.git
-from demo_msis import datetime2gtd
-import hwm93
+from fortrandates import datetime2gtd
+try:
+    import hwm93
+except ImportError as e:
+    exit('you must compile using f2py. Please see README.md. ' + str(e))
 
-def testhwm93(dstr,altkm,glat,glon,f107a,f107,ap):
-    iyd,utsec,stl = datetime2gtd(dstr,glon)
+def testhwm93(dtime,altkm,glat,glon,f107a,f107,ap):
+    iyd,utsec,stl = datetime2gtd(dtime,glon)
 
     merid = []; zonal=[]
     for a in altkm:
