@@ -14,9 +14,7 @@ from __future__ import division
 from numpy import arange,asarray
 from matplotlib.pyplot import figure,show
 #
-import sys
-sys.path.append('../msise-00/') #git clone https://github.com/scienceopen/msise-00.git
-from fortrandates import datetime2gtd
+from msise00.fortrandates import datetime2gtd
 try:
     import hwm93
 except ImportError as e:
