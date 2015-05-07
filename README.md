@@ -5,7 +5,7 @@ All credit to original authors, I slightly modified the Fortran 77
 code so it could compile in a modern compiler. 
 
 ```
-f2py3 -m hwm93 -c hwm93_sub.for 
+make -f Makefile.f2py
 ```
 plot by:
 ```
