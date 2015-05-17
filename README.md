@@ -1,20 +1,21 @@
+[![Code Climate](https://codeclimate.com/github/scienceopen/pyhwm93/badges/gpa.svg)](https://codeclimate.com/github/scienceopen/pyhwm93)
 # python-hwm93
 NASA Horizontal Wind Model HWM93 in Python
 
-All credit to original authors, I slightly modified the Fortran 77 
-code so it could compile in a modern compiler. 
-
+Installation
+-------------
 ```
+git clone --depth 1 --recursive https://github.com/scienceopen/pyhwm93
+pip install -r requirements.txt
 make -f Makefile.f2py
 ```
-plot by:
+
+Example usage:
+----------------
 ```
 python demo_hwm93.py
 ```
 
-Prereqs:
---------
-``` pip install -r requirements.txt ```
 
 #### Reference
 Original A. E. Hedin Fortran 77 HWM93 code from
