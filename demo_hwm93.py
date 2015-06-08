@@ -14,7 +14,7 @@ from __future__ import division
 from numpy import arange,asarray
 from matplotlib.pyplot import figure,show
 #
-from msise00.fortrandates import datetime2gtd
+from gridaurora.fortrandates import datetime2gtd
 try:
     import hwm93
 except ImportError as e:
