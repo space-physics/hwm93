@@ -7,14 +7,13 @@ Michael Hirsch
 bostonmicrowave.com
 
 Original fortran code by A. E. Hedin
-from
-ftp://hanna.ccmc.gsfc.nasa.gov/pub/modelweb/atmospheric/hwm93/
+from ftp://hanna.ccmc.gsfc.nasa.gov/pub/modelweb/atmospheric/hwm93/
 """
 from __future__ import division
 from numpy import arange,asarray
 from matplotlib.pyplot import figure,show
 #
-from gridaurora.fortrandates import datetime2gtd
+from histutils.fortrandates import datetime2gtd
 try:
     import hwm93
 except ImportError as e:
