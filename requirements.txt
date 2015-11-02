@@ -1,0 +1,7 @@
+setuptools
+six
+python-dateutil
+pytz
+numpy
+matplotlib
+seaborn
