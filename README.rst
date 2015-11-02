@@ -27,4 +27,5 @@ Example usage:
 
 Reference
 ---------
-`Original A. E. Hedin Fortran 77 HWM93 code from <ftp://hanna.ccmc.gsfc.nasa.gov/pub/modelweb/atmospheric/hwm93/>`_
+Original A. E. Hedin Fortran 77 HWM93 code from 
+ftp://hanna.ccmc.gsfc.nasa.gov/pub/modelweb/atmospheric/hwm93/
