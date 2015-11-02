@@ -1,4 +1,7 @@
-.. image:: https://codeclimate.com/github/scienceopen/pyhwm93/badges/gpa.svg)
+.. image:: https://travis-ci.org/scienceopen/pyhwm93.svg
+    :target: https://travis-ci.org/scienceopen/pyhwm93
+
+.. image:: https://codeclimate.com/github/scienceopen/pyhwm93/badges/gpa.svg
     :target: https://codeclimate.com/github/scienceopen/pyhwm93
 
 ============    
@@ -8,9 +11,9 @@ NASA Horizontal Wind Model HWM93 in Python
 
 Installation
 -------------
-.. code-block:: bash
+::
 
-    git clone --depth 1https://github.com/scienceopen/pyhwm93
+    git clone --depth 1 https://github.com/scienceopen/pyhwm93
     conda install --file requirements.txt
     python setup.py develop
 
