@@ -14,7 +14,7 @@ def test_hwm():
 
     mer,zon = runhwm93(t,altkm,glat,glon,f107a,f107,ap)
 
-    assert_allclose(mer,-110.16133881)
+    assert_allclose(mer,-110.16133881,rtol=1e-4) #gfortran 4.6 vs 5.2
     assert_allclose(zon,-12.40071201)
 
 if __name__ == '__main__':
