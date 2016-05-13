@@ -8,9 +8,9 @@ Michael Hirsch
 Original fortran code by A. E. Hedin
 from ftp://hanna.ccmc.gsfc.nasa.gov/pub/modelweb/atmospheric/hwm93/
 """
-from __future__ import division,absolute_import
 from numpy import arange
 from matplotlib.pyplot import show
+import seaborn
 #
 from pyhwm93.runhwm93 import runhwm93,plothwm
 

@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 import setuptools
+
+try:
+    subprocess.run(['conda','install','--yes','--file','requirements.txt'])
+except Exception as e:
+    print('you will need to install packages in requirements.txt  {}'.format(e))
+
 from numpy.distutils.core import setup,Extension
 
 with open('README.rst','r') as f:
@@ -11,10 +17,10 @@ setup(name='pyhwm93',
 	  long_description=long_description,
 	  author='Michael Hirsch',
 	  url='https://github.com/scienceopen/pyhwm93',
-   dependency_links = ['https://github.com/scienceopen/histutils/tarball/master#egg=histutils'],
-	  install_requires=['histutils'],
+      dependency_links = ['https://github.com/scienceopen/gridaurora/tarball/master#egg=gridaurora'],
+	  install_requires=['gridaurora'],
       packages=['pyhwm93'],
-  ext_modules=[Extension(name='hwm93',
+      ext_modules=[Extension(name='hwm93',
                 sources=['fortran/hwm93_sub.for'],
                 f2py_options=['--quiet'])]
 	  )

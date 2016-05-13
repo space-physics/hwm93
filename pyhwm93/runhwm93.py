@@ -1,7 +1,5 @@
-from __future__ import division,absolute_import
 from numpy import asarray,atleast_1d
 from matplotlib.pyplot import figure
-import seaborn
 #
 import hwm93
 from histutils.fortrandates import datetime2gtd
