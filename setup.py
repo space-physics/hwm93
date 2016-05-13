@@ -15,7 +15,7 @@ setup(name='pyhwm93',
 	  install_requires=['histutils'],
       packages=['pyhwm93'],
   ext_modules=[Extension(name='hwm93',
-                sources=['fortrancode/hwm93_sub.for'],
+                sources=['fortran/hwm93_sub.for'],
                 f2py_options=['--quiet'])]
 	  )
 
