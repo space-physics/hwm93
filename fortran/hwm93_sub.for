@@ -43,11 +43,14 @@ C             For example, to get zonal averages (no diurnal or
 C             longitudinal variations) set SW(7),SW(8), SW(14),
 C             and SW(10) equal to 0.  To just remove tidal variations 
 C             set SW(7),SW(8), and SW(14) equal to 0.
-      Intent(OUT) :: W
+      integer, intent(in) :: IYD
+      real, intent(in) :: SEC,ALT,GLAT,GLONG,STL,F107A,F107,AP(1)
+      real,intent(OUT) :: W(2)
+
       CHARACTER(len=4) :: ISDATE(3),ISTIME(2),NAME(2),
      &                    ISD(3),IST(2),NAM(2)
       PARAMETER (MN1=5,MN2=14)
-      DIMENSION AP(1),W(2),WINDF(2),WW(2),SV(25)
+      DIMENSION WINDF(2),WW(2),SV(25)
       DIMENSION WZL(2),WDZL(2)
       DIMENSION ZN1(MN1),UN1(MN1,2),UGN1(2,2)
       DIMENSION ZN2(MN2),UN2(MN2,2),UGN2(2,2)
@@ -172,7 +175,7 @@ C       Set number of nodes calculated each side of required altitude
 C         to adjust profile accuracy vs efficiency
       ENTRY SETNW5(NNW)
       NNN=NNW
-      END
+      END SUBROUTINE GWS5
 C-----------------------------------------------------------------------
       FUNCTION WPROF(Z,ZL,S,UINF,ULB,ULBD,MN1,ZN1,UN1,UGN1,
      $   MN2,ZN2,UN2,UGN2)
@@ -225,8 +228,7 @@ C      Eq.
         WPROF=Y
         RETURN
       ENDIF
-      RETURN
-      END
+      END FUNCTION WPROF
 C-----------------------------------------------------------------------
       SUBROUTINE GLBW5E(YRD,SEC,LAT,LONG,STL,F107A,F107,AP,PB,PC,WW)
       REAL LAT,LONG
@@ -747,8 +749,8 @@ C       SUM WINDS AND CHANGE MERIDIONAL SIGN TO + NORTH
    50 CONTINUE
       IF(WW(1).NE.9898) WW(1)=WBT(1)*SW(24)+WCT(1)*SW(25)
       IF(WW(2).NE.9898) WW(2)=WBT(2)*SW(24)+WCT(2)*SW(25)
-      RETURN
-      END
+
+      END SUBROUTINE GLBW5E
 C-----------------------------------------------------------------------
       SUBROUTINE GLBW5M(YRD,SEC,LAT,LONG,STL,F107A,F107,AP,PB,PC,WW)
       REAL LAT,LONG
@@ -1033,8 +1035,8 @@ C       SUM WINDS AND CHANGE MERIDIONAL SIGN TO + NORTH
    50 CONTINUE
       IF(WW(1).NE.9898) WW(1)=WBT(1)*SW(24)+WCT(1)*SW(25)
       IF(WW(2).NE.9898) WW(2)=WBT(2)*SW(24)+WCT(2)*SW(25)
-      RETURN
-      END
+
+      END  SUBROUTINE GLBW5M
 C-----------------------------------------------------------------------
       SUBROUTINE GLBW5S(IYD,LAT,LONG,STL,PB,PC,WW)
       REAL LAT,LONG
@@ -1332,8 +1334,8 @@ C       SUM WINDS AND CHANGE MERIDIONAL SIGN TO + NORTH
    50 CONTINUE
       IF(WW(1).NE.9898) WW(1)=WBT(1)*SW(24)+WCT(1)*SW(25)
       IF(WW(2).NE.9898) WW(2)=WBT(2)*SW(24)+WCT(2)*SW(25)
-      RETURN
-      END
+
+      END SUBROUTINE GLBW5S
 C-----------------------------------------------------------------------
       SUBROUTINE TSELEC(SV)
 C        SET SWITCHES
@@ -1355,7 +1357,7 @@ C        SW FOR MAIN TERMS, SWC FOR CROSS TERMS
       DO 200 I=1,25
         SVV(I)=SAV(I)
   200 CONTINUE
-      END
+      END  SUBROUTINE TSELEC
 C-----------------------------------------------------------------------
       SUBROUTINE VSPHR1(C,S,L,M,BT,BP,LMAX)
 C      CALCULATE VECTOR SPHERICAL HARMONIC B FIELD THETA AND PHI
@@ -1401,7 +1403,7 @@ C       RESULT FOR GIVEN L,M SAVED IN BT AND BP AT ONE HIGHER INDEX NUM
           ENDIF
    15   CONTINUE
    20 CONTINUE
-      END
+      END SUBROUTINE VSPHR1
 C-----------------------------------------------------------------------
       SUBROUTINE LEGPL1(C,S,L,M,PLG,LMAX)
 C      CALCULATE LEGENDRE POLYNOMIALS PLG(L+1,M+1) THROUGH ORDER L,M 
@@ -1429,8 +1431,8 @@ C      CALCULATE L=M CASE AND L=M+1
      $     (LL+MM-1.)*PLG(LL-1,MM+1))/(LL-MM)
    20   CONTINUE
    30 CONTINUE
-      RETURN
-      END
+
+      END SUBROUTINE LEGPL1
 C-----------------------------------------------------------------------
       SUBROUTINE SPLINE(X,Y,N,YP1,YPN,Y2)
 C        CALCULATE 2ND DERIVATIVES OF CUBIC SPLINE INTERP FUNCTION
@@ -1467,8 +1469,8 @@ C        Y2: OUTPUT ARRAY OF SECOND DERIVATIVES
       DO 12 K=N-1,1,-1
         Y2(K)=Y2(K)*Y2(K+1)+U(K)
    12 CONTINUE
-      RETURN
-      END
+
+      END SUBROUTINE SPLINE
 C-----------------------------------------------------------------------
       SUBROUTINE SPLINT(XA,YA,Y2A,N,X,Y)
 C        CALCULATE CUBIC SPLINE INTERP VALUE
@@ -1497,8 +1499,8 @@ C        Y: OUTPUT VALUE
       B=(X-XA(KLO))/H
       Y=A*YA(KLO)+B*YA(KHI)+
      $  ((A*A*A-A)*Y2A(KLO)+(B*B*B-B)*Y2A(KHI))*H*H/6.
-      RETURN
-      END
+
+      END SUBROUTINE SPLINT
 C-----------------------------------------------------------------------
       BLOCK DATA INITW5
 C       For wind model GWS
@@ -1510,7 +1512,7 @@ C       For wind model GWS
       DATA XVL/-999./,LVL/-1/,MVL/-1/
       DATA TLL/-999./,NSVL/-1/
       DATA XLL/-999./,NGVL/-1/
-      END
+      END  BLOCK DATA
 C-----------------------------------------------------------------------
       BLOCK DATA GWSBK5
 C          HWM93    28-JAN-93   
@@ -2700,4 +2702,4 @@ C          UN2(14)
      *  0.00000E+00, 0.00000E+00, 0.00000E+00, 0.00000E+00, 0.00000E+00,
      *  0.00000E+00, 0.00000E+00, 0.00000E+00, 0.00000E+00, 0.00000E+00,
      *  0.00000E+00, 0.00000E+00, 0.00000E+00, 0.00000E+00, 5.00000E+00/
-      END
+      END block data

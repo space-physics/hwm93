@@ -10,22 +10,27 @@ python-hwm93
 NASA Horizontal Wind Model HWM93 in Python
 
 Installation
--------------
+=============
 ::
 
-    git clone --depth 1 https://github.com/scienceopen/pyhwm93
-    conda install --file requirements.txt
     python setup.py develop
 
-Example usage:
-----------------
+Example usage
+=============
 ::
     
     python demo_hwm93.py
 
+Optional Fortran-only use
+=========================
+::
+   
+    cd bin
+    cmake ../fortran
+    make
 
 
 Reference
----------
+=========
 Original A. E. Hedin Fortran 77 HWM93 code from 
 ftp://hanna.ccmc.gsfc.nasa.gov/pub/modelweb/atmospheric/hwm93/
