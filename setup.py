@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import setuptools
+import subprocess
 
 try:
     subprocess.run(['conda','install','--yes','--file','requirements.txt'])
