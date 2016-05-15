@@ -10,6 +10,7 @@ from ftp://hanna.ccmc.gsfc.nasa.gov/pub/modelweb/atmospheric/hwm93/
 """
 from numpy import arange
 from matplotlib.pyplot import show
+from dateutil.parser import parse
 import seaborn
 #
 from pyhwm93.runhwm93 import runhwm93,plothwm
@@ -17,7 +18,7 @@ from pyhwm93.runhwm93 import runhwm93,plothwm
 if __name__ == '__main__':
     from argparse import ArgumentParser
     p = ArgumentParser(description='calls HWM93 from Python, a basic demo')
-    p.add_argument('simtime',help='yyyy-mm-ddTHH:MM:SSZ time of sim',nargs='?',default='')
+    p.add_argument('simtime',help='yyyy-mm-ddTHH:MM:SSZ time of sim',nargs='?',default='2016-01-01T12Z')
     p.add_argument('-a','--altkm',help='altitude (km) (start,stop,step)',type=float,nargs='+',default=(60,1000,5))
     p.add_argument('-c','--latlon',help='geodetic latitude (deg)',type=float,default=(65,-148))
     p.add_argument('f107a',help=' 81 day AVERAGE OF F10.7 FLUX (centered on day DDD)',type=float,nargs='?',default=150)
@@ -29,7 +30,9 @@ if __name__ == '__main__':
 
     glat,glon = p.latlon
 
-    mer,zon = runhwm93(p.simtime,altkm,glat,glon,p.f107a,p.f107,p.ap)
+    T = parse(p.simtime)
 
-    plothwm(mer,zon,altkm,glat,glon)
+    mer,zon = runhwm93(T,altkm,glat,glon,p.f107a,p.f107,p.ap)
+
+    plothwm(mer,zon,altkm,T,glat,glon)
     show()
