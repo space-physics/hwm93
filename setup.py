@@ -1,11 +1,11 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import setuptools
 import subprocess
 
 try:
-    subprocess.run(['conda','install','--yes','--file','requirements.txt'])
+    subprocess.call(['conda','install','--file','requirements.txt'])
 except Exception as e:
-    print('you will need to install packages in requirements.txt  {}'.format(e))
+    pass
 
 from numpy.distutils.core import setup,Extension
 
@@ -13,16 +13,14 @@ ext = Extension(name='hwm93',
                 sources=['fortran/hwm93_sub.for'],
                 f2py_options=['--quiet'])
 
-with open('README.rst','r') as f:
-  	long_description = f.read()
 
 setup(name='pyhwm93',
 	  description='HWM93 model',
-	  long_description=long_description,
 	  author='Michael Hirsch',
 	  url='https://github.com/scienceopen/pyhwm93',
       dependency_links = ['https://github.com/scienceopen/gridaurora/tarball/master#egg=gridaurora'],
 	  install_requires=['gridaurora'],
-      ext_modules=[ext]
+      ext_modules=[ext],
+      packages=['pyhwm93'],
 	  )
 

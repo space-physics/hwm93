@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 NOTE: The performance of this demo has not been checked at all.
 Please do basic sanity checks of output.

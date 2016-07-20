@@ -1,6 +1,5 @@
-#!/usr/bin/env python3
-from __future__ import division,absolute_import
-from numpy.testing import assert_allclose
+#!/usr/bin/env python
+from numpy.testing import assert_allclose, run_module_suite
 from datetime import datetime
 from pytz import UTC
 #
@@ -18,4 +17,4 @@ def test_hwm():
     assert_allclose(zon,-12.40071201,rtol=1e-4) #gfortran 4.6 vs 5.2
 
 if __name__ == '__main__':
-    test_hwm()
+    run_module_suite()
