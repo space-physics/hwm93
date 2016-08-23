@@ -13,7 +13,8 @@ from matplotlib.pyplot import show
 from dateutil.parser import parse
 import seaborn
 #
-from pyhwm93.runhwm93 import runhwm93,plothwm
+from pyhwm93 import runhwm93
+from pyhwm93.plots import plothwm
 
 if __name__ == '__main__':
     from argparse import ArgumentParser
