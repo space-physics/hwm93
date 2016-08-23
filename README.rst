@@ -10,6 +10,11 @@ python-hwm93
 ============
 NASA Horizontal Wind Model HWM93 in Python
 
+.. contents::
+
+.. image:: tests/example.png
+    :scale: 25%
+
 Installation
 =============
 ::
