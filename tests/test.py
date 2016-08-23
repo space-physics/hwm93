@@ -3,7 +3,7 @@ from numpy.testing import assert_allclose, run_module_suite
 from datetime import datetime
 from pytz import UTC
 #
-from pyhwm93.runhwm93 import runhwm93
+from pyhwm93 import runhwm93
 
 def test_hwm():
     t = datetime(2013,3,31,12,tzinfo=UTC)
