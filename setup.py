@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 import setuptools
-import subprocess
-
 try:
-    subprocess.call(['conda','install','--file','requirements.txt'])
+    import conda.cli
+    conda.cli.main('install','--file','requirements.txt')
 except Exception as e:
-    pass
+    print(e)
 
 from numpy.distutils.core import setup,Extension
 
@@ -15,9 +14,6 @@ ext = Extension(name='hwm93',
 
 
 setup(name='pyhwm93',
-	  description='HWM93 model',
-	  author='Michael Hirsch',
-	  url='https://github.com/scienceopen/pyhwm93',
       dependency_links = ['https://github.com/scienceopen/gridaurora/tarball/master#egg=gridaurora'],
 	  install_requires=['gridaurora'],
       ext_modules=[ext],

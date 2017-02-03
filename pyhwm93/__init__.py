@@ -1,10 +1,3 @@
-try:
-    from pathlib import Path
-    Path().expanduser()
-except (ImportError,AttributeError):
-    from pathlib2 import Path
-    
-#%%
 from numpy import asarray,atleast_1d
 #
 import hwm93
