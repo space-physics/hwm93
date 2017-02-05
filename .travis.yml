@@ -14,8 +14,8 @@ addons:
 
 matrix:
   include:
-    - os: osx
-      env: pyv=3.6
+#    - os: osx
+#      env: pyv=3.6
 
     - os: linux
       env: pyv=3.6
