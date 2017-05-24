@@ -15,7 +15,7 @@ import setuptools
 from numpy.distutils.core import setup,Extension
 
 ext = Extension(name='hwm93',
-                sources=['fortran/hwm93_sub.for'],
+                sources=['fortran/hwm93_sub.f'],
                 f2py_options=['--quiet'])
 
 
