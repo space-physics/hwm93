@@ -1,7 +1,7 @@
-.. image:: https://travis-ci.org/scienceopen/pyhwm93.svg
-    :target: https://travis-ci.org/scienceopen/pyhwm93
-.. image:: https://coveralls.io/repos/github/scienceopen/pyhwm93/badge.svg?branch=master 
-    :target: https://coveralls.io/github/scienceopen/pyhwm93?branch=master
+.. image:: https://travis-ci.org/scivision/pyhwm93.svg
+    :target: https://travis-ci.org/scivision/pyhwm93
+.. image:: https://coveralls.io/repos/github/scivision/pyhwm93/badge.svg?branch=master 
+    :target: https://coveralls.io/github/scivision/pyhwm93?branch=master
 
 ============    
 python-hwm93
@@ -30,7 +30,7 @@ Optional Fortran-only use
 ::
    
     cd bin
-    cmake ../fortran
+    cmake ..
     make
 
 

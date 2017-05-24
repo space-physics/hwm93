@@ -1,6 +1,7 @@
 from numpy import asarray,atleast_1d
 #
 import hwm93
+#
 from sciencedates import datetime2gtd
 
 def runhwm93(t,altkm,glat,glon,f107a,f107,ap):

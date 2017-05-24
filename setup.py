@@ -1,13 +1,17 @@
 #!/usr/bin/env python
-import setuptools
+req = ['nose','python-dateutil','pytz','numpy','matplotlib','seaborn']
+pipreq=['gridaurora']
+
+import pip
 try:
     import conda.cli
-    conda.cli.main('install','--file','requirements.txt')
-except Exception as e:
-    print(e)
-    import pip
-    pip.main(['install','-r','requirements.txt'])
+    conda.cli.main('install',*req)
+except Exception:
+    pip.main(['install'] + req)
+pip.main(['install'] + pipreq)
 
+#%%
+import setuptools
 from numpy.distutils.core import setup,Extension
 
 ext = Extension(name='hwm93',
@@ -16,9 +20,9 @@ ext = Extension(name='hwm93',
 
 
 setup(name='pyhwm93',
-      dependency_links = ['https://github.com/scienceopen/gridaurora/tarball/master#egg=gridaurora'],
-	  install_requires=['gridaurora'],
       ext_modules=[ext],
       packages=['pyhwm93'],
+      author='Michael Hirsch, Ph.D.',
+      url='https://github.com/scivision/pyhwm93',
 	  )
 
