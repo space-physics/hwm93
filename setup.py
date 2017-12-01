@@ -1,17 +1,9 @@
 #!/usr/bin/env python
-req = ['nose','python-dateutil','pytz','numpy','matplotlib','seaborn']
-pipreq=['gridaurora']
+install_requires = ['python-dateutil','pytz','numpy',
+'gridaurora']
+tests_require=['nose','coveralls']
 
-import pip
-try:
-    import conda.cli
-    conda.cli.main('install',*req)
-except Exception:
-    pip.main(['install'] + req)
-pip.main(['install'] + pipreq)
-
-#%%
-import setuptools
+from setuptools import find_packages
 from numpy.distutils.core import setup,Extension
 
 ext = Extension(name='hwm93',
@@ -21,8 +13,12 @@ ext = Extension(name='hwm93',
 
 setup(name='pyhwm93',
       ext_modules=[ext],
-      packages=['pyhwm93'],
+      packages=find_packages(),
       author='Michael Hirsch, Ph.D.',
       url='https://github.com/scivision/pyhwm93',
+      install_requires=install_requires,
+      tests_require=tests_require,
+      extras_require={'tests':tests_require},
+      python_requires='>=2.7',
 	  )
 
