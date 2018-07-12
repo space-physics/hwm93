@@ -1,7 +1,8 @@
-cmake_minimum_required (VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.7)
 project(hwm93 Fortran)
+enable_testing()
 
-add_compile_options(-march=native -fexceptions -Wline-truncation)
+add_compile_options(-g -march=native -fexceptions -Wline-truncation)
 
-add_executable(hwm fortran/hwm93_driver.f fortran/hwm93_sub.f)
-
+add_executable(hwm src/hwm93_driver.f src/hwm93_sub.f)
+add_test(NAME HMW93 COMMAND hwm)
