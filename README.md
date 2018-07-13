@@ -8,7 +8,7 @@
 
 # HWM93 in Python
 
-NASA Horizontal Wind Model HWM93 in Python
+NASA Horizontal Wind Model HWM93 in Python.
 
 
 ![image](tests/example.png)
@@ -31,13 +31,17 @@ test by
 
 ## Usage
 
-Command line:
+PyHWM93 can be used from the command line or as an imported module in other programs.
+Matlab &ge; R2014b also can use PyHWM93.
+
+### Command line
 
     RunHWM93 -h
     
 Write data to NetCDF (HDF5) with `-o` option.
  
-As a Python module:
+### import module
+
 ```python
 import pyhwm93
 from datetime import datetime
@@ -65,6 +69,13 @@ Attributes:
 If you want just a single variable, say
 ```python
 print(winds.zonal.values)
+```
+
+### Matlab
+
+If you don't have the Matlab Aerospace Toolbox, you can import this Python module from Matlab &ge; R2014b as
+```matlab
+py.pyhwm93.runhwm93()
 ```
 
 ## Notes
