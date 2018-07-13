@@ -9,13 +9,17 @@ Original fortran code by A. E. Hedin
 from ftp://hanna.ccmc.gsfc.nasa.gov/pub/modelweb/atmospheric/hwm93/
 """
 from numpy import arange
-from matplotlib.pyplot import show
 from dateutil.parser import parse
 from argparse import ArgumentParser
 from pyhwm93 import runhwm93
-from pyhwm93.plots import plothwm
-import seaborn as sns
-sns.set_context('talk')
+try:
+    from matplotlib.pyplot import show
+    from pyhwm93.plots import plothwm
+    import seaborn as sns
+    sns.set_context('talk')
+except ImportError as e:
+    print(e)
+    plothwm = None
 
 
 def main():
@@ -40,9 +44,10 @@ def main():
 
     winds = runhwm93(T, altkm, glat, glon, p.f107a, p.f107, p.ap)
 
-    plothwm(winds)
+    if plothwm is not None:
+        plothwm(winds)
 
-    show()
+        show()
 
 
 if __name__ == '__main__':
