@@ -14,10 +14,10 @@ def test_hwm():
     f107 = 100
     ap = 4
 
-    mer, zon = runhwm93(t, altkm, glat, glon, f107a, f107, ap)
+    wind = runhwm93(t, altkm, glat, glon, f107a, f107, ap)
 
-    assert_allclose(mer, -110.16133881, rtol=1e-4)  # gfortran 4.6 vs 5.2
-    assert_allclose(zon, -12.40071201, rtol=1e-4)  # gfortran 4.6 vs 5.2
+    assert_allclose(wind['meridional'], -110.16133881, rtol=1e-4)  # gfortran 4.6 vs 5.2
+    assert_allclose(wind['zonal'], -12.40071201, rtol=1e-4)  # gfortran 4.6 vs 5.2
 
 
 if __name__ == '__main__':
