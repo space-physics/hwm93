@@ -1,9 +1,11 @@
+      program hwm93_driver
+
 C      TEST DRIVER FOR GWS5 (HWM93 HORIZONTAL WIND MODEL)
       DIMENSION W(2,20)
       DIMENSION IDAY(20),UT(20),ALT(20),XLAT(20),XLONG(20),XLST(20),
      $ F107A(20),F107(20),AP(20)    
       COMMON/HWMC/WBT(2),WCT(2)
-      DATA IDAY/172,81,8*172,3*81.,7*182./
+      DATA IDAY/172,81,8*172,3*81,7*182/
       DATA UT/29000.,29000.,75000.,17*29000./
       DATA ALT/400.,400.,400.,200.,6*400.,5*100.,80.,60.,40.,20.,0/
       DATA XLAT/4*60.,0.,5*60.,4*45.,0,45.,45.,-45.,45.,45./
@@ -12,11 +14,11 @@ C      TEST DRIVER FOR GWS5 (HWM93 HORIZONTAL WIND MODEL)
       DATA F107A/7*150.,70.,150.,150.,10*150./
       DATA F107/8*150.,180.,150.,10*150./
       DATA AP/9*4.,40.,4.,40.,8*4./
-      DO 10 I=1,20
+      DO I=1,20
          CALL GWS5(IDAY(I),UT(I),ALT(I),XLAT(I),XLONG(I),XLST(I),
-     $             F107A(I),F107(I),AP(I),W(1,I))
+     $             F107A(I),F107(I),AP(I:I+1),W(1,I))
          WRITE(6,100) W(1,I),WBT(1),WCT(1),W(2,I),WBT(2),WCT(2)
-   10 CONTINUE
+      enddo
       WRITE(6,200) (IDAY(I),I=1,5)
       WRITE(6,201) (UT(I),I=1,5)
       WRITE(6,202) (ALT(I),I=1,5)
@@ -73,5 +75,5 @@ C      TEST DRIVER FOR GWS5 (HWM93 HORIZONTAL WIND MODEL)
   210 FORMAT(' AP   ',5F12.0)
   208 FORMAT(/' MERID',5F12.2)
   209 FORMAT(' ZONAL',5F12.2)
-      STOP
-      END
+
+      END program

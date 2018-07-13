@@ -44,7 +44,8 @@ C             longitudinal variations) set SW(7),SW(8), SW(14),
 C             and SW(10) equal to 0.  To just remove tidal variations 
 C             set SW(7),SW(8), and SW(14) equal to 0.
       integer, intent(in) :: IYD
-      real, intent(in) :: SEC,ALT,GLAT,GLONG,STL,F107A,F107,AP(1)
+      real, intent(in) :: SEC,ALT,GLAT,GLONG,STL,F107A,F107
+      real, intent(in) :: AP(2)
       real,intent(OUT) :: W(2)
 
       CHARACTER(len=4) :: ISDATE(3),ISTIME(2),NAME(2),
@@ -52,8 +53,10 @@ C             set SW(7),SW(8), and SW(14) equal to 0.
       PARAMETER (MN1=5,MN2=14)
       DIMENSION WINDF(2),WW(2),SV(25)
       DIMENSION WZL(2),WDZL(2)
-      DIMENSION ZN1(MN1),UN1(MN1,2),UGN1(2,2)
-      DIMENSION ZN2(MN2),UN2(MN2,2),UGN2(2,2)
+      DIMENSION ZN1(MN1),zn2(mn2),UN1(MN1,2),UGN1(2,2)
+      DIMENSION UN2(MN2,2),UGN2(2,2)
+      
+      
       COMMON/PARMW5/PWB(200),PWC(200),PWBL(150),PWCL(150),PWBLD(150),
      $ PWCLD(150),PB12(150),PC12(150),PB13(150),PC13(150),
      $ PB14(150),PC14(150),PB15(150),PC15(150),
@@ -63,19 +66,22 @@ C             set SW(7),SW(8), and SW(14) equal to 0.
       COMMON/DATW/ISD,IST,NAM
       COMMON/DATIME/ISDATE,ISTIME,NAME
       SAVE
-      EXTERNAL INITW5,GWSBK5
+
       DATA S/.016/,ZL/200./,SV/25*1./,NNN/3/,MN2S/1/,MN2M/1/
       DATA ZN1/200.,150.,130.,115.,100./
-      DATA ZN2/100.,90.,82.5,75.,67.5,60.,52.5,45.,37.5,30.,22.5,
-     $ 15.,7.5,0/
+      data ZN2/100.,90.,82.5,75.,67.5,60.,52.5,
+     & 45.,37.5,30.,22.5, 15.,7.5, 0./
+     
+      call INITW5()
+      call GWSBK5()
 C      Put identification data into common/datime/
-      DO 1 I=1,3
+      DO I=1,3
         ISDATE(I)=ISD(I)
-    1 CONTINUE
-      DO 2 I=1,2
+      enddo
+      DO I=1,2
         ISTIME(I)=IST(I)
         NAME(I)=NAM(I)
-    2 CONTINUE
+      enddo
       IF(ISW.NE.64999) CALL TSELEC(SV)
       YRD=IYD
       WW(1)=W(1)
@@ -88,7 +94,7 @@ C       EXOSPHERE WIND
       WINDF(1)=SW(16)*WINDF(1)
       WINDF(2)=SW(16)*WINDF(2)
 C       WIND  AT ZL
-      CALL GLBW5M(YRD,SEC,GLAT,GLONG,STL,F107A,F107,AP,PWBL,PWCL,WW)
+      CALL GLBW5M(YRD,GLAT,STL,F107A,F107,AP,PWBL,PWCL,WW)
       WZL(1)=(PWBL(1)*WINDF(1)+WW(1))*SW(17)*SW(18)
       WZL(2)=(PWBL(1)*WINDF(2)+WW(2))*SW(17)*SW(18)
       UN1(1,1)=WZL(1)
@@ -96,7 +102,7 @@ C       WIND  AT ZL
 C       WIND DERIVATIVE AT ZL
       WW(1)=0
       WW(2)=0
-      CALL GLBW5M(YRD,SEC,GLAT,GLONG,STL,F107A,F107,AP,PWBLD,PWCLD,WW)
+      CALL GLBW5M(YRD,GLAT,STL,F107A,F107,AP,PWBLD,PWCLD,WW)
       WDZL(1)=(PWBLD(1)*WINDF(1)+WW(1))*SW(19)*SW(18)
       WDZL(2)=(PWBLD(1)*WINDF(2)+WW(2))*SW(19)*SW(18)
       UGN1(1,1)=WDZL(1)*S
@@ -105,15 +111,15 @@ C
       IF(ALT.GE.ZL) GOTO 90
 C
 C        WIND AT ZN1(2) (150)
-      CALL GLBW5M(YRD,SEC,GLAT,GLONG,STL,F107A,F107,AP,PB12,PC12,WW)
+      CALL GLBW5M(YRD,GLAT,STL,F107A,F107,AP,PB12,PC12,WW)
       UN1(2,1)=(PB12(1)*WINDF(1)+WW(1))*SW(18)
       UN1(2,2)=(PB12(1)*WINDF(2)+WW(2))*SW(18)
 C        WIND AT ZN1(3) (130)
-      CALL GLBW5M(YRD,SEC,GLAT,GLONG,STL,F107A,F107,AP,PB13,PC13,WW)
+      CALL GLBW5M(YRD,GLAT,STL,F107A,F107,AP,PB13,PC13,WW)
       UN1(3,1)=WW(1)*SW(18)
       UN1(3,2)=WW(2)*SW(18)
 C        WIND AT ZN1(4) (115)
-      CALL GLBW5M(YRD,SEC,GLAT,GLONG,STL,F107A,F107,AP,PB14,PC14,WW)
+      CALL GLBW5M(YRD,GLAT,STL,F107A,F107,AP,PB14,PC14,WW)
       UN1(4,1)=WW(1)*SW(18)
       UN1(4,2)=WW(2)*SW(18)
 C
@@ -122,11 +128,11 @@ C
       IF(ALT.LT.ZN2(MNN)) GOTO 40
 C
 C        WIND AT ZN1(5) (100)
-      CALL GLBW5M(YRD,SEC,GLAT,GLONG,STL,F107A,F107,AP,PB15,PC15,WW)
+      CALL GLBW5M(YRD,GLAT,STL,F107A,F107,AP,PB15,PC15,WW)
       UN1(5,1)=WW(1)*SW(18)
       UN1(5,2)=WW(2)*SW(18)
 C         WIND DERIVATIVE AT ZN1(5) (100)
-      CALL GLBW5M(YRD,SEC,GLAT,GLONG,STL,F107A,F107,AP,PB15D,PC15D,WW)
+      CALL GLBW5M(YRD,GLAT,STL,F107A,F107,AP,PB15D,PC15D,WW)
       UGN1(2,1)=WW(1)*SW(18)
       UGN1(2,2)=WW(2)*SW(18)
 C
@@ -154,7 +160,7 @@ C
       DO 20 I=MN2S,MN2E
         II=2*(I-2)+1
         IF(I.GT.1) THEN
-          CALL GLBW5S(IYD,GLAT,GLONG,STL,PWP(1,II),PWP(1,II+1),WW)
+          CALL GLBW5S(IYD,GLAT,GLONG,STL,PWP(:,II),PWP(:,II+1),WW)
           UN2(I,1)=WW(1)*SW(20)
           UN2(I,2)=WW(2)*SW(20)
         ENDIF
@@ -173,15 +179,19 @@ C       WIND AT ALTITUDE
       RETURN
 C       Set number of nodes calculated each side of required altitude
 C         to adjust profile accuracy vs efficiency
-      ENTRY SETNW5(NNW)
+!      ENTRY SETNW5(NNW)
       NNN=NNW
       END SUBROUTINE GWS5
-C-----------------------------------------------------------------------
-      FUNCTION WPROF(Z,ZL,S,UINF,ULB,ULBD,MN1,ZN1,UN1,UGN1,
+
+
+      real FUNCTION WPROF(Z,ZL,S,UINF,ULB,ULBD,MN1,ZN1,UN1,UGN1,
      $   MN2,ZN2,UN2,UGN2)
       DIMENSION ZN1(MN1),UN1(MN1),UGN1(2),XS(15),YS(15),Y2OUT(15)
       DIMENSION ZN2(MN2),UN2(MN2),UGN2(2)
       SAVE
+      
+      wprof = 0.
+      
       IF(Z.GE.ZL) THEN
         X=S*(Z-ZL)
         F=EXP(-X)
@@ -229,11 +239,13 @@ C      Eq.
         RETURN
       ENDIF
       END FUNCTION WPROF
-C-----------------------------------------------------------------------
+
+
       SUBROUTINE GLBW5E(YRD,SEC,LAT,LONG,STL,F107A,F107,AP,PB,PC,WW)
-      REAL LAT,LONG
-      DIMENSION WB(2,15),WC(2,15),PB(1),PC(1),WW(2)
-      DIMENSION AP(1)
+      REAL, intent(in) :: yrd, sec, LAT,LONG, stl,f107a, f107
+      real :: WB(2,15),WC(2,15)
+      real, intent(in) :: AP(2),PC(200)
+      real, intent(inout) :: PB(200),WW(2)
       COMMON/CSW/SW(25),ISW,SWC(25)
       COMMON/HWMC/WBT(2),WCT(2)
 C      COMMON/VPOLY/BT(20,20),BP(20,20),CSTL,SSTL,C2STL,S2STL,
@@ -253,7 +265,7 @@ C       CONFIRM PARAMETER SET
       IF(PB(100).NE.PSET) THEN
         WRITE(6,900) PB(100),PC(100)
   900   FORMAT(1X,'WRONG PARAMETER SET FOR GLBW5E',3F10.1)
-        STOP
+        STOP 1
       ENDIF
 C
       DO 10 J=1,NSW
@@ -264,7 +276,7 @@ C
    10 CONTINUE
       IF(SW(9).GT.0) SW9=1.
       IF(SW(9).LT.0) SW9=-1.
-      IYR = YRD/1000.
+      IYR = int(YRD/1000.)
       DAY = YRD - IYR*1000.
       IF(XVL.NE.LAT.OR.LV.GT.LVL.OR.MV.GT.MVL) THEN
         SLAT=SIN(DGTR*LAT)
@@ -752,10 +764,11 @@ C       SUM WINDS AND CHANGE MERIDIONAL SIGN TO + NORTH
 
       END SUBROUTINE GLBW5E
 C-----------------------------------------------------------------------
-      SUBROUTINE GLBW5M(YRD,SEC,LAT,LONG,STL,F107A,F107,AP,PB,PC,WW)
-      REAL LAT,LONG
-      DIMENSION WB(2,15),WC(2,15),PB(1),PC(1),WW(2)
-      DIMENSION AP(1)
+      SUBROUTINE GLBW5M(YRD,LAT,STL,F107A,F107,AP,PB,PC,WW)
+      REAL, intent(in) :: yrd, LAT, stl, f107a, f107
+      real :: WB(2,15),WC(2,15)
+      real, intent(in) :: AP(2),PC(150)
+      real, intent(inout) :: PB(150),WW(2)
       COMMON/CSW/SW(25),ISW,SWC(25)
       COMMON/HWMC/WBT(2),WCT(2)
 C      COMMON/VPOLY/BT(20,20),BP(20,20),CSTL,SSTL,C2STL,S2STL,
@@ -775,7 +788,7 @@ C       CONFIRM PARAMETER SET
       IF(PB(100).NE.PSET) THEN
         WRITE(6,900) PSET,PB(100),PC(100)
   900   FORMAT(1X,'WRONG PARAMETER SET FOR GLBW5M',3F10.1)
-        STOP
+        STOP 1
       ENDIF
 C
       DO 10 J=1,NSW
@@ -786,7 +799,7 @@ C
    10 CONTINUE
       IF(SW(9).GT.0) SW9=1.
       IF(SW(9).LT.0) SW9=-1.
-      IYR = YRD/1000.
+      IYR = int(YRD/1000.)
       DAY = YRD - IYR*1000.
       IF(XVL.NE.LAT.OR.LV.GT.LVL.OR.MV.GT.MVL) THEN
         SLAT=SIN(DGTR*LAT)
@@ -1036,11 +1049,15 @@ C       SUM WINDS AND CHANGE MERIDIONAL SIGN TO + NORTH
       IF(WW(1).NE.9898) WW(1)=WBT(1)*SW(24)+WCT(1)*SW(25)
       IF(WW(2).NE.9898) WW(2)=WBT(2)*SW(24)+WCT(2)*SW(25)
 
-      END  SUBROUTINE GLBW5M
-C-----------------------------------------------------------------------
+      END SUBROUTINE GLBW5M
+
+
       SUBROUTINE GLBW5S(IYD,LAT,LONG,STL,PB,PC,WW)
       REAL LAT,LONG
-      DIMENSION WB(2,15),WC(2,15),PB(1),PC(1),WW(2)
+      real :: WB(2,15),WC(2,15)
+      real, intent(in) :: PC(200)
+      real, intent(inout) :: PB(150),WW(2)
+      
       COMMON/CSW/SW(25),ISW,SWC(25)
       COMMON/HWMC/WBT(2),WCT(2)
       COMMON/VPOLY2/XVL,LVL,MVL,CLAT,SLAT,BT(20,20),BP(20,20)
@@ -1051,11 +1068,12 @@ C-----------------------------------------------------------------------
       DATA PB14/-1./,PB18/-1./,PC14/-1./,PC18/-1./,PSET/5./
       DATA NSW/14/,WB/30*0/,WC/30*0/
 C       CONFIRM PARAMETER SET
+
       IF(PB(100).EQ.0) PB(100)=PSET
       IF(PB(100).NE.PSET) THEN
         WRITE(6,900) PSET,PB(100),PC(100)
   900   FORMAT(1X,'WRONG PARAMETER SET FOR GLBW5S',3F10.1)
-        STOP
+        STOP 1
       ENDIF
 C
       DO 10 J=1,NSW
@@ -1336,7 +1354,8 @@ C       SUM WINDS AND CHANGE MERIDIONAL SIGN TO + NORTH
       IF(WW(2).NE.9898) WW(2)=WBT(2)*SW(24)+WCT(2)*SW(25)
 
       END SUBROUTINE GLBW5S
-C-----------------------------------------------------------------------
+      
+      
       SUBROUTINE TSELEC(SV)
 C        SET SWITCHES
 C        SW FOR MAIN TERMS, SWC FOR CROSS TERMS
@@ -1380,7 +1399,7 @@ C       RESULT FOR GIVEN L,M SAVED IN BT AND BP AT ONE HIGHER INDEX NUM
       IF(L.EQ.0.AND.M.EQ.0) RETURN
       CALL LEGPL1(C,S,L+1,M,PLG,20)
       IF(ABS(S).LT.1.E-5) THEN
-        IC=SIGN(1.,S)
+        IC = int(SIGN(1.,S))
         S=0
       ENDIF
       DO 20 LL=1,L
@@ -1442,7 +1461,7 @@ C        YP1,YPN: SPECIFIED DERIVATIVES AT X(1) AND X(N); VALUES
 C                 >= 1E30 SIGNAL SIGNAL SECOND DERIVATIVE ZERO
 C        Y2: OUTPUT ARRAY OF SECOND DERIVATIVES
       PARAMETER (NMAX=100)
-      DIMENSION X(N),Y(N),Y2(N),U(NMAX)
+      real :: X(N),Y(N),Y2(N),U(NMAX)
       SAVE
       IF(YP1.GT..99E30) THEN
         Y2(1)=0
@@ -1471,7 +1490,8 @@ C        Y2: OUTPUT ARRAY OF SECOND DERIVATIVES
    12 CONTINUE
 
       END SUBROUTINE SPLINE
-C-----------------------------------------------------------------------
+      
+      
       SUBROUTINE SPLINT(XA,YA,Y2A,N,X,Y)
 C        CALCULATE CUBIC SPLINE INTERP VALUE
 C        XA,YA: ARRAYS OF TABULATED FUNCTION IN ASCENDING ORDER BY X
@@ -1501,8 +1521,9 @@ C        Y: OUTPUT VALUE
      $  ((A*A*A-A)*Y2A(KLO)+(B*B*B-B)*Y2A(KHI))*H*H/6.
 
       END SUBROUTINE SPLINT
-C-----------------------------------------------------------------------
-      BLOCK DATA INITW5
+
+ 
+      subroutine INITW5()
 C       For wind model GWS
       COMMON/CSW/SW(25),ISW,SWC(25)
       COMMON/VPOLY2/XVL,LVL,MVL,CLAT,SLAT,BT(20,20),BP(20,20)
@@ -1512,9 +1533,10 @@ C       For wind model GWS
       DATA XVL/-999./,LVL/-1/,MVL/-1/
       DATA TLL/-999./,NSVL/-1/
       DATA XLL/-999./,NGVL/-1/
-      END  BLOCK DATA
-C-----------------------------------------------------------------------
-      BLOCK DATA GWSBK5
+      END subroutine INITW5
+      
+      
+      subroutine GWSBK5()
 C          HWM93    28-JAN-93   
       CHARACTER(len=4) :: ISDATE(3),ISTIME(2),NAME(2)
       COMMON/PARMW5/PBA1(50),PBA2(50),PBA3(50),PBA4(50),
@@ -2702,4 +2724,4 @@ C          UN2(14)
      *  0.00000E+00, 0.00000E+00, 0.00000E+00, 0.00000E+00, 0.00000E+00,
      *  0.00000E+00, 0.00000E+00, 0.00000E+00, 0.00000E+00, 0.00000E+00,
      *  0.00000E+00, 0.00000E+00, 0.00000E+00, 0.00000E+00, 5.00000E+00/
-      END block data
+      END subroutine GWSBK5

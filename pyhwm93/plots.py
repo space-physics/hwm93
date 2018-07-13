@@ -12,4 +12,4 @@ def plothwm(winds: xarray.Dataset):
     ax.legend(loc='best')
     ax.grid(True)
     ax.set_title(f'HWM93 Meridional / Zonal winds,\n '
-                 '{T} lat/lon={winds.glat:.1f}, {winds.glon:.1f}')
+                 f'{winds.time} lat/lon={winds.glat:.1f}, {winds.glon:.1f}')

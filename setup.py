@@ -4,6 +4,6 @@ from numpy.distutils.core import setup, Extension
 
 ext = Extension(name='hwm93',
                 sources=['src/hwm93_sub.f'],
-                f2py_options=['--quiet'])
+                f2py_options=['--quiet', 'only:', 'gws5', ':'])
 
 setup(ext_modules=[ext])

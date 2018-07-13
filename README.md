@@ -13,9 +13,21 @@ NASA Horizontal Wind Model HWM93 in Python
 
 ![image](tests/example.png)
 
+Works with many Fortran compilers, including:
+
+* Gfortran 5, 6, 7, 8
+* Intel `ifort`
+* PGI `pgf90`
+* Nvidia `flang`
+
+
 ## Install
 
     pip install -e .
+    
+test by 
+
+    pytest -sv
 
 ## Usage
 
@@ -32,6 +44,12 @@ Most users don't need this.
     cd bin
     cmake ..
     cmake --build .
+    
+    
+or
+
+    f2py -c src/hwm93_sub.f  -m hwm93 only: gws5 :
+
 
 ### Reference
 

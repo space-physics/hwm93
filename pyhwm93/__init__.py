@@ -14,12 +14,13 @@ def runhwm93(t: datetime, altkm: np.ndarray, glat: float, glon: float,
     zonal = np.empty(altkm.size, dtype=float)
 
     for i, a in enumerate(altkm):
-        m, z = hwm93.gws5(iyd, utsec, a, glat, glon, stl, f107a, f107, ap)
-        merid[i] = m
-        zonal[i] = z
+        w = hwm93.gws5(iyd, utsec, a, glat, glon, stl, f107a, f107, (ap, ap))
+        merid[i] = w[0]
+        zonal[i] = w[1]
 
 # %% assemble output
-    winds = xarray.Dataset({'meridional': ('alt_km', merid), 'zonal': ('alt_km', zonal)},
+    winds = xarray.Dataset({'meridional': ('alt_km', merid),
+                            'zonal': ('alt_km', zonal)},
                            coords={'alt_km': altkm},
                            attrs={'time': t, 'glat': glat, 'glon': glon})
 
