@@ -5,8 +5,8 @@ from sciencedates import datetime2gtd
 import xarray
 
 
-def runhwm93(t: datetime, altkm: np.ndarray, glat: float, glon: float,
-             f107a: float, f107: float, ap: int) -> xarray.Dataset:
+def run(t: datetime, altkm: np.ndarray, glat: float, glon: float,
+        f107a: float, f107: float, ap: int) -> xarray.Dataset:
     altkm = np.atleast_1d(altkm).astype(float)
     iyd, utsec, stl = datetime2gtd(t, glon)
 

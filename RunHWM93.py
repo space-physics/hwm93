@@ -12,7 +12,7 @@ from pathlib import Path
 from numpy import arange
 from dateutil.parser import parse
 from argparse import ArgumentParser
-from pyhwm93 import runhwm93
+import pyhwm93
 try:
     from matplotlib.pyplot import show
     from pyhwm93.plots import plothwm
@@ -44,7 +44,7 @@ def main():
 
     T = parse(p.simtime)
 
-    winds = runhwm93(T, altkm, glat, glon, p.f107a, p.f107, p.ap)
+    winds = pyhwm93.run(T, altkm, glat, glon, p.f107a, p.f107, p.ap)
 
     if p.outfn:
         outfn = Path(p.outfn).expanduser()

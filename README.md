@@ -46,8 +46,8 @@ Write data to NetCDF (HDF5) with `-o` option.
 import pyhwm93
 from datetime import datetime
 
-winds = pyhwm93.runhwm93(t=datetime(2017,11,12,8), altkm=150., 
-                         glat=65., glon=-148., f107a=150, f107=150, ap=4)
+winds = pyhwm93.run(t=datetime(2017,11,12,8), altkm=150., 
+                    glat=65., glon=-148., f107a=150, f107=150, ap=4)
 ```
 
 `winds` is an [xarray.Dataset](http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html)
@@ -75,7 +75,7 @@ print(winds.zonal.values)
 
 If you don't have the Matlab Aerospace Toolbox, you can import this Python module from Matlab &ge; R2014b as
 ```matlab
-py.pyhwm93.runhwm93()
+py.pyhwm93.run()
 ```
 
 ## Notes
