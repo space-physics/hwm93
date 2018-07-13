@@ -72,15 +72,18 @@ print(winds.zonal.values)
 ### [Optional] Fortran-only use
 
 Most users don't need this.
-
-    cd bin
-    cmake ..
-    cmake --build .
-    
-    
+```sh
+cd bin
+cmake ..
+cmake --build .
+ctest -V
+````
+   
 or
 
-    f2py -c src/hwm93_sub.f  -m hwm93 only: gws5 :
+```sh
+f2py -c src/hwm93_sub.f  -m hwm93 only: gws5 :
+```
 
 
 ### Reference
