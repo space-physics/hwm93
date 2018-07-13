@@ -19,7 +19,7 @@ try:
     sns.set_context('talk')
 except ImportError as e:
     print(e)
-    plothwm = None
+    plothwm = None  # type: ignore
 
 
 def main():
