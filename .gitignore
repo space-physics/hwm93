@@ -1,3 +1,5 @@
+*.nc
+dist/
 .pytest_cache/
 .mypy_cache/
 bin/
