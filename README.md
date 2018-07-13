@@ -31,9 +31,41 @@ test by
 
 ## Usage
 
-    RunHWM93
+Command line:
 
+    RunHWM93 -h
+    
+Write data to NetCDF (HDF5) with `-o` option.
+ 
+As a Python module:
+```python
+import pyhwm93
+from datetime import datetime
 
+winds = pyhwm93.runhwm93(t=datetime(2017,11,12,8), altkm=150., 
+                         glat=65., glon=-148., f107a=150, f107=150, ap=4)
+```
+
+`winds` is an [xarray.Dataset](http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html)
+
+```
+ <xarray.Dataset>
+Dimensions:     (alt_km: 1)
+Coordinates:
+  * alt_km      (alt_km) float64 150.0
+Data variables:
+    meridional  (alt_km) float64 4.827
+    zonal       (alt_km) float64 -20.5
+Attributes:
+    time:     2017-11-12T08:00:00
+    glat:     65.0
+    glon:     -148.0
+``` 
+
+If you want just a single variable, say
+```python
+print(winds.zonal.values)
+```
 
 ## Notes
 

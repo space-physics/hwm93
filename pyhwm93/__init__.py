@@ -22,6 +22,6 @@ def runhwm93(t: datetime, altkm: np.ndarray, glat: float, glon: float,
     winds = xarray.Dataset({'meridional': ('alt_km', merid),
                             'zonal': ('alt_km', zonal)},
                            coords={'alt_km': altkm},
-                           attrs={'time': t, 'glat': glat, 'glon': glon})
+                           attrs={'time': t.isoformat(), 'glat': glat, 'glon': glon})
 
     return winds

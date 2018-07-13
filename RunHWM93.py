@@ -8,6 +8,7 @@ Michael Hirsch
 Original fortran code by A. E. Hedin
 from ftp://hanna.ccmc.gsfc.nasa.gov/pub/modelweb/atmospheric/hwm93/
 """
+from pathlib import Path
 from numpy import arange
 from dateutil.parser import parse
 from argparse import ArgumentParser
@@ -34,6 +35,7 @@ def main():
     p.add_argument('f107', help='DAILY F10.7 FLUX FOR PREVIOUS DAY',
                    type=float, nargs='?', default=150)
     p.add_argument('ap', help='daily ap', type=int, nargs='?', default=4)
+    p.add_argument('-o','--outfn', help='write NetCDF (HDF5) of data')
     p = p.parse_args()
 
     altkm = arange(p.altkm[0], p.altkm[1], p.altkm[2])
@@ -43,6 +45,11 @@ def main():
     T = parse(p.simtime)
 
     winds = runhwm93(T, altkm, glat, glon, p.f107a, p.f107, p.ap)
+    
+    if p.outfn:
+        outfn = Path(p.outfn).expanduser()
+        print('writing',outfn)
+        winds.to_netcdf(outfn)
 
     if plothwm is not None:
         plothwm(winds)
