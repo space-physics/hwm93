@@ -8,7 +8,7 @@
 
 # HWM93 in Python
 
-NASA Horizontal Wind Model HWM93 in Python.
+NASA Horizontal Wind Model HWM93 in Python &ge; 3.6
 
 
 ![image](tests/example.png)
