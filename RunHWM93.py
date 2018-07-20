@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 """
-NOTE: The performance of this demo has not been checked at all.
-Please do basic sanity checks of output.
-Quick demo of calling HWM93 using f2py3 from Python
 Michael Hirsch
 
 Original fortran code by A. E. Hedin
