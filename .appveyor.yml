@@ -10,13 +10,15 @@ environment:
 
 clone_depth: 3
 
-before_build:
+build: off
+
+init:
 - cmd: set PATH=%MINGW_DIR%;%PY_DIR%;%PY_DIR%\Scripts;%PATH%
 
 - sh: sudo apt-get -yq update > /dev/null
 - sh: sudo apt-get install -yq --no-install-suggests --no-install-recommends gfortran cmake make > /dev/null
 
-build_script:
+install:
 #- pip install -e .[tests]   # FIXME: need to figure out f2py on AppVeyor
 
 - cd bin
@@ -24,6 +26,6 @@ build_script:
 - sh: cmake ..
 - cmake --build .
   
-after_build:
+test_script:
 - ctest -V
 
