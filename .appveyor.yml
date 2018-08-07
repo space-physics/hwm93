@@ -1,6 +1,6 @@
 image:
 - Visual Studio 2017
-# - Ubuntu   too old CMake 3.5
+- Ubuntu
 
 stack: python 3
 
@@ -13,10 +13,8 @@ clone_depth: 3
 build: off
 
 init:
-- cmd: set PATH=%MINGW_DIR%;%PY_DIR%;%PY_DIR%\Scripts;%PATH%
-
-- sh: sudo apt-get -yq update > /dev/null
-- sh: sudo apt-get install -yq --no-install-suggests --no-install-recommends gfortran cmake make > /dev/null
+- cmd: set PATH=%MINGW_DIR%;%PATH%
+- cmd: set PATH=%PY_DIR%;%PY_DIR%\Scripts;%PATH%
 
 install:
 #- pip install -e .[tests]   # FIXME: need to figure out f2py on AppVeyor
@@ -25,7 +23,9 @@ install:
 - cmd: cmake -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND" ..
 - sh: cmake ..
 - cmake --build .
-  
+
 test_script:
 - ctest -V
+- cd ..
+#- pytest -rsv
 
