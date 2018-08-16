@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-from numpy.testing import assert_allclose
+from pytest import approx
 import pytest
 from datetime import datetime
-import pyhwm93
+import hwm93
 
 
 def test_hwm():
@@ -14,11 +14,11 @@ def test_hwm():
     f107 = 100
     ap = 4
 
-    wind = pyhwm93.run(t, altkm, glat, glon, f107a, f107, ap)
+    wind = hwm93.run(t, altkm, glat, glon, f107a, f107, ap)
 
-    assert_allclose(wind['meridional'], -110.16133881, rtol=1e-4)  # gfortran 4.6 vs 5.2
-    assert_allclose(wind['zonal'], -12.40071201, rtol=1e-4)  # gfortran 4.6 vs 5.2
+    assert wind['meridional'] == approx(-110.16133881, rel=1e-4)  # gfortran 4.6 vs 5.2
+    assert wind['zonal'] == approx(-12.40071201, rel=1e-4)  # gfortran 4.6 vs 5.2
 
 
 if __name__ == '__main__':
-    pytest.main()
+    pytest.main(['-x', __file__])

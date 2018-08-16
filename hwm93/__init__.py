@@ -1,5 +1,5 @@
 import numpy as np
-import hwm93
+import hwm93fort
 from datetime import datetime
 from sciencedates import datetime2gtd
 import xarray
@@ -14,7 +14,7 @@ def run(t: datetime, altkm: np.ndarray, glat: float, glon: float,
     zonal = np.empty(altkm.size, dtype=float)
 
     for i, a in enumerate(altkm):
-        w = hwm93.gws5(iyd, utsec, a, glat, glon, stl, f107a, f107, (ap, ap))
+        w = hwm93fort.gws5(iyd, utsec, a, glat, glon, stl, f107a, f107, (ap, ap))
         merid[i] = w[0]
         zonal[i] = w[1]
 

@@ -9,15 +9,9 @@ from pathlib import Path
 from numpy import arange
 from dateutil.parser import parse
 from argparse import ArgumentParser
-import pyhwm93
-try:
-    from matplotlib.pyplot import show
-    from pyhwm93.plots import plothwm
-    import seaborn as sns
-    sns.set_context('talk')
-except ImportError as e:
-    print(e)
-    plothwm = None  # type: ignore
+import hwm93
+from matplotlib.pyplot import show
+from hwm93.plots import plothwm
 
 
 def main():
@@ -41,17 +35,17 @@ def main():
 
     T = parse(p.simtime)
 
-    winds = pyhwm93.run(T, altkm, glat, glon, p.f107a, p.f107, p.ap)
+    winds = hwm93.run(T, altkm, glat, glon, p.f107a, p.f107, p.ap)
 
     if p.outfn:
         outfn = Path(p.outfn).expanduser()
         print('writing', outfn)
         winds.to_netcdf(outfn)
 
-    if plothwm is not None:
-        plothwm(winds)
+   
+    plothwm(winds)
 
-        show()
+    show()
 
 
 if __name__ == '__main__':

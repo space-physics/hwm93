@@ -4,8 +4,9 @@ import subprocess
 
 
 def test_hwm():
-    subprocess.check_call(['RunHWM93', ])
+    pytest.importorskip('matplotlib')
+    subprocess.check_call(['RunHWM93'])
 
 
 if __name__ == '__main__':
-    pytest.main()
+    pytest.main(['-x', __file__])
