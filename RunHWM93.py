@@ -42,7 +42,6 @@ def main():
         print('writing', outfn)
         winds.to_netcdf(outfn)
 
-   
     plothwm(winds)
 
     show()

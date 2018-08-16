@@ -2,13 +2,18 @@ import numpy as np
 import hwm93fort
 from datetime import datetime
 from sciencedates import datetime2gtd
+from dateutil.parser import parse
 import xarray
 
 
-def run(t: datetime, altkm: np.ndarray, glat: float, glon: float,
+def run(time: datetime, altkm: np.ndarray, glat: float, glon: float,
         f107a: float, f107: float, ap: int) -> xarray.Dataset:
     altkm = np.atleast_1d(altkm).astype(float)
-    iyd, utsec, stl = datetime2gtd(t, glon)
+
+    if isinstance(time, str):
+        time = parse(time)
+
+    iyd, utsec, stl = datetime2gtd(time, glon)
 
     merid = np.empty(altkm.size, dtype=float)
     zonal = np.empty(altkm.size, dtype=float)
@@ -22,6 +27,6 @@ def run(t: datetime, altkm: np.ndarray, glat: float, glon: float,
     winds = xarray.Dataset({'meridional': ('alt_km', merid),
                             'zonal': ('alt_km', zonal)},
                            coords={'alt_km': altkm},
-                           attrs={'time': t.isoformat(), 'glat': glat, 'glon': glon})
+                           attrs={'time': time.isoformat(), 'glat': glat, 'glon': glon})
 
     return winds

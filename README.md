@@ -1,9 +1,9 @@
-[![image](https://travis-ci.org/scivision/pyhwm93.svg)](https://travis-ci.org/scivision/pyhwm93)
-[![Coverage Status](https://coveralls.io/repos/github/scivision/pyhwm93/badge.svg?branch=master)](https://coveralls.io/github/scivision/pyhwm93?branch=master)
-[![Build status](https://ci.appveyor.com/api/projects/status/xtxdcmk601xti6l6?svg=true)](https://ci.appveyor.com/project/scivision/pyhwm93)
-[![PyPi version](https://img.shields.io/pypi/pyversions/pyhwm93.svg)](https://pypi.python.org/pypi/pyhwm93)
-[![PyPi formats](https://img.shields.io/pypi/format/pyhwm93.svg)](https://pypi.python.org/pypi/pyhwm93)
-[![PyPi Download stats](http://pepy.tech/badge/pyhwm93)](http://pepy.tech/project/pyhwm93)
+[![Build Status](https://travis-ci.org/scivision/hwm93.svg?branch=master)](https://travis-ci.org/scivision/hwm93)
+[![Coverage Status](https://coveralls.io/repos/github/scivision/hwm93/badge.svg?branch=master)](https://coveralls.io/github/scivision/hwm93?branch=master)
+[![Build status](https://ci.appveyor.com/api/projects/status/4g7131qb0vk4p8q7?svg=true)](https://ci.appveyor.com/project/scivision/hwm93)
+[![PyPi version](https://img.shields.io/pypi/pyversions/hwm93.svg)](https://pypi.python.org/pypi/hwm93)
+[![PyPi formats](https://img.shields.io/pypi/format/hwm93.svg)](https://pypi.python.org/pypi/hwm93)
+[![PyPi Download stats](http://pepy.tech/badge/hwm93)](http://pepy.tech/project/hwm93)
 
 
 # HWM93 in Python
@@ -31,8 +31,8 @@ test by
 
 ## Usage
 
-PyHWM93 can be used from the command line or as an imported module in other programs.
-Matlab &ge; R2014b also can use PyHWM93.
+HWM93 can be used from the command line or as an imported Python module in other programs.
+Matlab &ge; R2014b also can use HWM93.
 
 ### Command line
 
@@ -43,10 +43,10 @@ Write data to NetCDF (HDF5) with `-o` option.
 ### import module
 
 ```python
-import pyhwm93
+import hwm93
 from datetime import datetime
 
-winds = pyhwm93.run(t=datetime(2017,11,12,8), altkm=150., 
+winds = hwm93.run(t=datetime(2017,11,12,8), altkm=150., 
                     glat=65., glon=-148., f107a=150, f107=150, ap=4)
 ```
 
@@ -73,10 +73,7 @@ print(winds.zonal.values)
 
 ### Matlab
 
-If you don't have the Matlab Aerospace Toolbox, you can import this Python module from Matlab &ge; R2014b as
-```matlab
-py.pyhwm93.run()
-```
+You can import this Python module from Matlab &ge; R2014b as in [hwm93.m](hwm93.m)
 
 ## Notes
 
