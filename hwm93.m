@@ -1,6 +1,7 @@
 function hwm93()
-% quick demo calling HWM93 model from Matlab.
+%% HWM93 model from Matlab.
 % https://www.scivision.co/matlab-python-user-module-import/
+assert(~verLessThan('matlab', '9.5'), 'Matlab >= R2018b required')
 
 % geographic WGS84 lat,lon,alt
 glat = 65.1;
@@ -36,27 +37,6 @@ function plotwinds(alt_km, merid, zonal, t,glat,glon)
   
 end
 
-function V = xarray2mat(V)
-  % convert xarray 2-D array to Matlab matrix
-
-
-V= V.values;
-S = V.shape;
-V = cell2mat(cell(V.ravel('F').tolist()));
-if length(S) == 2
-  V = reshape(V,[int64(S{1}), int64(S{2})]);
+function M = xarray2mat(V)
+M = double(py.numpy.asfortranarray(V));
 end
-
-end
-
-function I = xarrayind2vector(V,key)
-
-C = cell(V{1}.indexes{key}.values.tolist);  % might be numeric or cell array of strings
-
-if iscellstr(C) || any(class(C{1})=='py.str')
-    I=cellfun(@char,C, 'uniformoutput',false);
-else
-    I = cell2mat();
-end % if
-
-end % function

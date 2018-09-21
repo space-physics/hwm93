@@ -47,7 +47,7 @@ python setup.py build_ext --inplace --compiler=mingw32
 ## Usage
 
 HWM93 can be used from the command line or as an imported Python module in other programs.
-Matlab &ge; R2014b also can use HWM93.
+Matlab also can use HWM93.
 
 ### Command line
 
@@ -88,7 +88,7 @@ print(winds.zonal.values)
 
 ### Matlab
 
-You can import this Python module from Matlab &ge; R2014b as in [hwm93.m](hwm93.m)
+You can import this Python module from Matlab as in `hwm93.m`.
 
 ## Notes
 
