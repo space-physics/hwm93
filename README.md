@@ -2,7 +2,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/scivision/hwm93/badge.svg?branch=master)](https://coveralls.io/github/scivision/hwm93?branch=master)
 [![Build status](https://ci.appveyor.com/api/projects/status/4g7131qb0vk4p8q7?svg=true)](https://ci.appveyor.com/project/scivision/hwm93)
 [![PyPi version](https://img.shields.io/pypi/pyversions/hwm93.svg)](https://pypi.python.org/pypi/hwm93)
-[![PyPi formats](https://img.shields.io/pypi/format/hwm93.svg)](https://pypi.python.org/pypi/hwm93)
 [![PyPi Download stats](http://pepy.tech/badge/hwm93)](http://pepy.tech/project/hwm93)
 
 
@@ -25,7 +24,7 @@ Works with many Fortran compilers, including:
 
 A Fortran compiler such as `gfortran` is needed. 
 We use `f2py` (part of `numpy`) to seamlessly use Fortran libraries from Python.
-If you don't have one, here is how to install Gfortran:
+If you don't have a Fortran compiler, here is how to install Gfortran:
 
 * Linux: `apt install gfortran`
 * Mac: `brew install gcc`
