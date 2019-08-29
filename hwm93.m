@@ -1,6 +1,6 @@
 function hwm93()
 %% HWM93 model from Matlab.
-% https://www.scivision.co/matlab-python-user-module-import/
+% https://www.scivision.dev/matlab-python-user-module-import/
 assert(~verLessThan('matlab', '9.5'), 'Matlab >= R2018b required')
 
 % geographic WGS84 lat,lon,alt
@@ -27,14 +27,14 @@ function plotwinds(alt_km, merid, zonal, t,glat,glon)
 
   plot(ax, merid, alt_km, 'displayname', 'meridional')
   plot(ax, zonal, alt_km, 'displayname', 'zonal')
-  
+
   title({[t,' deg.  (',num2str(glat),',', num2str(glon),')']})
   xlabel('Density [m^-3]')
   ylabel('altitude [km]')
 
   grid('on')
   legend('show')
-  
+
 end
 
 function M = xarray2mat(V)
