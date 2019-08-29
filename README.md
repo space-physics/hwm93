@@ -22,20 +22,20 @@ Works with many Fortran compilers, including:
 
 ## Install
 
-A Fortran compiler such as `gfortran` is needed. 
+A Fortran compiler such as `gfortran` is needed.
 We use `f2py` (part of `numpy`) to seamlessly use Fortran libraries from Python.
 If you don't have a Fortran compiler, here is how to install Gfortran:
 
 * Linux: `apt install gfortran`
 * Mac: `brew install gcc`
-* [Windows](https://www.scivision.co/windows-gcc-gfortran-cmake-make-install/)
+* [Windows](https://www.scivision.dev/windows-gcc-gfortran-cmake-make-install/)
 
     pip install -e .
-    
-test by 
+
+test by
 
     pytest -sv
-    
+
 ### Windows
 If you get ImportError on Windows for the Fortran module, try from the `hwm93` directory:
 ```posh
@@ -51,16 +51,16 @@ Matlab also can use HWM93.
 ### Command line
 
     RunHWM93 -h
-    
+
 Write data to NetCDF (HDF5) with `-o` option.
- 
+
 ### import module
 
 ```python
 import hwm93
 from datetime import datetime
 
-winds = hwm93.run(t=datetime(2017,11,12,8), altkm=150., 
+winds = hwm93.run(t=datetime(2017,11,12,8), altkm=150.,
                     glat=65., glon=-148., f107a=150, f107=150, ap=4)
 ```
 
@@ -78,7 +78,7 @@ Attributes:
     time:     2017-11-12T08:00:00
     glat:     65.0
     glon:     -148.0
-``` 
+```
 
 If you want just a single variable, say
 ```python
@@ -100,7 +100,7 @@ cmake ..
 cmake --build .
 ctest -V
 ````
-   
+
 or
 
 ```sh

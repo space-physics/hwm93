@@ -16,9 +16,9 @@ def test_hwm():
 
     wind = hwm93.run(t, altkm, glat, glon, f107a, f107, ap)
 
-    assert wind['meridional'] == approx(-110.16133881, rel=1e-4)  # gfortran 4.6 vs 5.2
-    assert wind['zonal'] == approx(-12.40071201, rel=1e-4)  # gfortran 4.6 vs 5.2
+    assert wind["meridional"] == approx(-110.16133881, rel=1e-4)  # gfortran 4.6 vs 5.2
+    assert wind["zonal"] == approx(-12.40071201, rel=1e-4)  # gfortran 4.6 vs 5.2
 
 
-if __name__ == '__main__':
-    pytest.main(['-xv', __file__])
+if __name__ == "__main__":
+    pytest.main(["-xv", __file__])
