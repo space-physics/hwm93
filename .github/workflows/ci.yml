@@ -42,7 +42,6 @@ jobs:
 
 
   install:
-    needs: [linux]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -50,9 +49,6 @@ jobs:
       with:
         python-version: '3.x'
     - run: sudo apt install -yq --no-install-recommends gfortran
-    - run: python setup.py install
-    - name: install test
-      run: |
-        cd ${HOME}
-        python -m pip install pytest
-        python -m pytest ${GITHUB_WORKSPACE} -r a -v
+    - run: pip install .[tests]
+    - run: pytest ${GITHUB_WORKSPACE} -r a -v
+      working_directory: ${HOME}

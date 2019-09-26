@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/scivision/hwm93.svg?branch=master)](https://travis-ci.org/scivision/hwm93)
-[![Coverage Status](https://coveralls.io/repos/github/scivision/hwm93/badge.svg?branch=master)](https://coveralls.io/github/scivision/hwm93?branch=master)
-[![Build status](https://ci.appveyor.com/api/projects/status/4g7131qb0vk4p8q7?svg=true)](https://ci.appveyor.com/project/scivision/hwm93)
+
+[![Actions Status](https://github.com/space-physics/hwm93/workflows/ci_python/badge.svg)](https://github.com/space-physics/hwm93/actions)
+
 [![PyPi version](https://img.shields.io/pypi/pyversions/hwm93.svg)](https://pypi.python.org/pypi/hwm93)
 [![PyPi Download stats](http://pepy.tech/badge/hwm93)](http://pepy.tech/project/hwm93)
 
@@ -14,7 +14,7 @@ NASA Horizontal Wind Model HWM93 in Python &ge; 3.6
 
 Works with many Fortran compilers, including:
 
-* Gfortran 5, 6, 7, 8
+* Gfortran &ge; 5
 * Intel `ifort`
 * PGI `pgf90`
 * Nvidia `flang`
@@ -50,7 +50,7 @@ Matlab also can use HWM93.
 
 ### Command line
 
-    RunHWM93 -h
+    python RunHWM93.py -h
 
 Write data to NetCDF (HDF5) with `-o` option.
 
@@ -95,10 +95,9 @@ You can import this Python module from Matlab as in `hwm93.m`.
 
 Most users don't need this.
 ```sh
-cd bin
-cmake ..
-cmake --build .
-ctest -V
+meson build
+
+meson test -C build
 ````
 
 or
