@@ -6,9 +6,7 @@ from dateutil.parser import parse
 import xarray
 
 
-def run(
-    time: datetime, altkm: np.ndarray, glat: float, glon: float, f107a: float, f107: float, ap: int
-) -> xarray.Dataset:
+def run(time: datetime, altkm: np.ndarray, glat: float, glon: float, f107a: float, f107: float, ap: int) -> xarray.Dataset:
     altkm = np.atleast_1d(altkm).astype(float)
 
     if isinstance(time, str):
