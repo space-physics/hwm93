@@ -12,10 +12,11 @@ jobs:
       with:
         python-version: '3.x'
     - run: sudo apt install -yq --no-install-recommends gfortran
-    - run:  pip install -e .[tests,lint]
+    - run: pip install .[tests,lint]
     - run: flake8
     - run: mypy .
-    - run: pytest -r a -v
+    - run: pytest ${GITHUB_WORKSPACE} -r a -v
+      working-directory: ${HOME}
 
   macos:
     runs-on: macos-latest
@@ -25,8 +26,9 @@ jobs:
       with:
         python-version: '3.x'
     - run: brew install gcc
-    - run: pip install -e .[tests]
-    - run: pytest -r a -v
+    - run: pip install .[tests]
+    - run: pytest ${GITHUB_WORKSPACE} -r a -v
+      working-directory: ${HOME}
 
   windows:
     runs-on: windows-latest
@@ -37,18 +39,6 @@ jobs:
         python-version: '3.x'
     - run: echo "[build]`ncompiler=mingw32" | Out-File -Encoding ASCII ~/pydistutils.cfg
       shell: powershell
-    - run: pip install -e .[tests]
-    - run: pytest -r a -v
-
-
-  install:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-python@v1
-      with:
-        python-version: '3.x'
-    - run: sudo apt install -yq --no-install-recommends gfortran
     - run: pip install .[tests]
     - run: pytest ${GITHUB_WORKSPACE} -r a -v
-      working_directory: ${HOME}
+      working-directory: ${USERPROFILE}
