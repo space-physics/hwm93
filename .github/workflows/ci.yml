@@ -20,7 +20,7 @@ jobs:
     - run: sudo apt install -yq --no-install-recommends gfortran
     - run: pip install .[tests,lint]
     - run: flake8
-    - run: mypy .
+    - run: mypy
     - run: python -m pytest
       working-directory: tests
 
